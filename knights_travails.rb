@@ -1,24 +1,21 @@
 class Node
 
-  attr_accessor :value, :parent, :children
+  attr_accessor :value, :parent
 
-  def initialize(value, parent, children)
+  def initialize(value, parent)
   	@value = value
   	@parent = parent
-  	@children = children
   end
 
 end
 
 class Knight
 
-
   def knight_moves(start_box, target_box)
   	@start = start_box
   	@target = target_box
   	@move = [[1, 2], [2, 1], [-1, 2], [-1, -2], [1, -2], [-2, 1], [-2, -1], [2, -1]]
-  	start = Node.new(start_box, nil, nil)
-  	target = Node.new(target_box, nil, nil)
+  	target = Node.new(target_box, nil)
   	@visited = [target]
   	@visited_values = [target_box]
   	@last = nil
@@ -27,9 +24,8 @@ class Knight
   	  element = queue.shift
   	  @move.each do |move|
   	  	val = [element.value[0]+move[0], element.value[1]+move[1]]
-  	  	node = Node.new(val, element, nil)
+  	  	node = Node.new(val, element)
   	  	if val[0]<8 && val[1]<8 && val[0]>-1 && val[1]>-1 && !@visited.include?(node) && !@visited_values.include?(val)
-  	      element.children = node
   	      queue << node
   	      @visited << node
   	      @visited_values << val
